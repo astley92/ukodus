@@ -3,3 +3,62 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    background-color: black;
+}
+
+.board {
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+    background-color: rgb(200, 200, 200);
+    overflow: hidden;
+    font-family: monospace;
+    font-size: 28px;
+}
+
+.boardRow {
+    display: flex;
+    width: min-content;
+    height: min-content;
+    position: relative;
+}
+
+.boardCell {
+    width: 50px;
+    aspect-ratio: 1;
+    position: relative;
+    background-color: lightgray;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(100, 100, 100);
+}
+
+.boardCell:hover {
+    background-color: grey;
+}
+
+.boardRow:nth-child(3n):not(:last-child):after {
+    content: "";
+    height: 5px;
+    width: 100%;
+    background-color: rgb(170, 170, 170);
+    position: absolute;
+    bottom: -3px;
+    z-index: 10;
+}
+
+.boardCell:nth-child(3):after,
+.boardCell:nth-child(6):after {
+    content: "";
+    width: 5px;
+    height: 150%;
+    position: absolute;
+    background-color: rgb(170, 170, 170);
+    right: -4px;
+    z-index: 10;
+}

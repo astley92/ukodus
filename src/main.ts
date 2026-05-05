@@ -1,5 +1,4 @@
 import './style.css'
+import { Sudoku } from "./lib/sudoku.ts"
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-<h1>Hello, world!<\h1>
-`
+Sudoku.initialize(document.querySelector<HTMLDivElement>('#app')!)
