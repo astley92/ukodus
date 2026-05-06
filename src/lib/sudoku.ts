@@ -1,8 +1,7 @@
 export class Sudoku {
-    rootElement: HTMLDivElement;
     board: Array<Array<number>>;
 
-    static initialize(element: HTMLDivElement): Sudoku {
+    static random(): Sudoku {
         let board = []
         for (let i = 0; i < 9; i++) {
             let row = []
@@ -12,28 +11,11 @@ export class Sudoku {
 
             board.push(row)
         }
-        let sudoku = new Sudoku(element, board)
-
-        for (let row of board) {
-            let rowElement = document.createElement("div")
-            rowElement.classList.add("boardRow")
-            for (let value of row) {
-                let cellElement = document.createElement("div")
-                cellElement.classList.add("boardCell")
-                if (value !== 0) {
-                    cellElement.textContent = value.toString();
-                }
-                rowElement.append(cellElement)
-            }
-            element.append(rowElement)
-        }
-
-        element.classList.add("board")
+        let sudoku = new Sudoku(board)
         return sudoku
     }
 
-    constructor(element: HTMLDivElement, board: Array<Array<number>>) {
-        this.rootElement = element
+    constructor(board: Array<Array<number>>) {
         this.board = board
     }
 }

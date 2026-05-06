@@ -1,4 +1,4 @@
 import './style.css'
-import { Sudoku } from "./lib/sudoku.ts"
+import { App } from "./lib/app.ts"
 
-Sudoku.initialize(document.querySelector<HTMLDivElement>('#app')!)
+App.initialize(document.querySelector<HTMLDivElement>('#app')!)
