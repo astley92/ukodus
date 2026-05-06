@@ -4,18 +4,26 @@ export class SudokuRenderer {
     static render(element: HTMLDivElement, sudoku: Sudoku): void {
         element.innerHTML = "";
 
-        for (let row of sudoku.board) {
-            let rowElement = document.createElement("div")
-            rowElement.classList.add("boardRow")
-            for (let value of row) {
-                let cellElement = document.createElement("div")
-                cellElement.classList.add("boardCell")
-                if (value !== 0) {
-                    cellElement.textContent = value.toString();
-                }
-                rowElement.append(cellElement)
+        let rowElement: HTMLDivElement = document.createElement("div")
+        let i = 0
+        let cells = sudoku.board
+        while (i < cells.length) {
+            if (i % Sudoku.WIDTH === 0) {
+                element.append(rowElement)
+                rowElement = document.createElement("div")
+                rowElement.classList.add("boardRow")
             }
-            element.append(rowElement)
+
+            let value = cells[i]
+            let cellElement = document.createElement("div")
+            cellElement.classList.add("boardCell")
+
+            if (value !== 0) {
+                cellElement.textContent = value.toString();
+            }
+
+            rowElement.append(cellElement)
+            i += 1
         }
 
         element.classList.add("board")
