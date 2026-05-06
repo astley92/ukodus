@@ -6,7 +6,7 @@ export class App {
     sudoku: Sudoku;
 
     static initialize(rootElement: HTMLDivElement): App {
-        let sudoku = Sudoku.random()
+        let sudoku = Sudoku.testBoard()
         SudokuRenderer.render(rootElement, sudoku)
         return new App(rootElement, sudoku)
     }

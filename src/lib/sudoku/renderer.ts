@@ -5,10 +5,12 @@ export class SudokuRenderer {
         element.innerHTML = "";
 
         let rowElement: HTMLDivElement = document.createElement("div")
+        rowElement.classList.add("boardRow")
+
         let i = 0
         let cells = sudoku.board
         while (i < cells.length) {
-            if (i % Sudoku.WIDTH === 0) {
+            if (i % Sudoku.WIDTH === 0 && rowElement.hasChildNodes()) {
                 element.append(rowElement)
                 rowElement = document.createElement("div")
                 rowElement.classList.add("boardRow")
@@ -25,6 +27,7 @@ export class SudokuRenderer {
             rowElement.append(cellElement)
             i += 1
         }
+        element.append(rowElement)
 
         element.classList.add("board")
     }
