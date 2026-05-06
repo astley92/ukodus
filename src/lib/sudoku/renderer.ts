@@ -1,4 +1,4 @@
-import { Sudoku } from "./../sudoku.ts"
+import { Sudoku, Cell } from "./../sudoku.ts"
 
 export class SudokuRenderer {
     static render(element: HTMLDivElement, sudoku: Sudoku): void {
@@ -16,13 +16,7 @@ export class SudokuRenderer {
                 rowElement.classList.add("boardRow")
             }
 
-            let value = cells[i]
-            let cellElement = document.createElement("div")
-            cellElement.classList.add("boardCell")
-
-            if (value !== 0) {
-                cellElement.textContent = value.toString();
-            }
+            let cellElement = this.#createCellElement(cells[i])
 
             rowElement.append(cellElement)
             i += 1
@@ -30,5 +24,20 @@ export class SudokuRenderer {
         element.append(rowElement)
 
         element.classList.add("board")
+    }
+
+    static #createCellElement(cell: Cell): HTMLDivElement {
+        let element = document.createElement("div")
+        element.classList.add("boardCell")
+
+        if (cell.value !== 0) {
+            element.textContent = cell.value.toString();
+        }
+
+        if (cell.isInvalid()) {
+            element.classList.add("invalid")
+        }
+
+        return element
     }
 }
