@@ -1,49 +1,27 @@
 import { Sudoku } from "../sudoku.ts"
 
 class SudokuValidator {
-    static call(cells: number[]) {
+    static call(cells: number[]): number[] {
         let invalidIndexes: number[] = []
-        let cols = this.#extractColumns(cells)
-        for (let x = 0; x < cols.length; x++) {
-            let col = cols[x]
+        for (let colIndex = 0; colIndex < Sudoku.WIDTH; colIndex++) {
+            let seen: Map<number, number[]> = new Map()
+            for (let x = colIndex; x < cells.length; x += Sudoku.WIDTH) {
+                let value = cells[x]
+                if (value == 0) continue
 
-            let tally = col.reduce<Record<number, number>>((acc, curr) => {
-                if (curr == 0) { return acc }
+                if (!seen.has(value)) {
+                    seen.set(value, [x])
+                } else {
+                    seen.get(value)!.push(x)
+                }
+            }
+            for (const [_, indexes] of seen) {
+                if (indexes.length < 2) continue
 
-                acc[curr] = (acc[curr] || 0) + 1
-                return acc
-            }, {})
-
-            let invalids = Object.entries(tally).filter(([_, v]) => v > 1).map(([k, _]) => parseInt(k, 10))
-            if (invalids.length == 0) continue
-
-            for (let y = 0; y < col.length; y++) {
-                let cell = col[y]
-                if (!invalids.includes(cell)) continue
-
-                invalidIndexes.push(this.#CoordsToIndex(x, y))
+                indexes.forEach(i => invalidIndexes.push(i))
             }
         }
-        return invalidIndexes
-    }
-
-    static #CoordsToIndex(x: number, y: number): number {
-        return (y * Sudoku.WIDTH) + x
-    }
-
-    static #extractColumns(cells: number[]): number[][] {
-        let cols = []
-        for (let i = 0; i < Sudoku.WIDTH; i++) {
-            let col = []
-            let x = i
-            while (x < cells.length) {
-                let val = cells[x].value
-                col.push(val)
-                x = x + Sudoku.WIDTH
-            }
-            cols.push(col)
-        }
-        return cols
+        return [...invalidIndexes]
     }
 }
 

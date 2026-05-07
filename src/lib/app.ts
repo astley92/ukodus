@@ -8,7 +8,7 @@ class App {
 
     static initialize(rootElement: HTMLDivElement): App {
         let sudoku = Sudoku.testBoard()
-        let invalidIndexes: number[] = SudokuValidator.call(sudoku.board)
+        let invalidIndexes: number[] = SudokuValidator.call(sudoku.board.map((cell) => cell.value))
 
         for (let i of invalidIndexes) {
             sudoku.invalidateCell(i)
