@@ -1,4 +1,4 @@
-export class Sudoku {
+class Sudoku {
     board: Array<Cell>;
 
     static WIDTH = 9;
@@ -45,7 +45,7 @@ export class Sudoku {
 
 }
 
-export class Cell {
+class Cell {
     value: number;
     valid: boolean
 
@@ -58,3 +58,5 @@ export class Cell {
         return !this.valid
     }
 }
+
+export { Sudoku, Cell }

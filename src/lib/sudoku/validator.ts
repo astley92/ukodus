@@ -1,8 +1,9 @@
-import { Sudoku } from "./../sudoku.ts"
+import { Sudoku } from "../sudoku.ts"
 
-export class SudokuValidator {
-    static call(sudoku: Sudoku) {
-        let cols = this.#boardColumns(sudoku)
+class SudokuValidator {
+    static call(cells: number[]) {
+        let invalidIndexes: number[] = []
+        let cols = this.#extractColumns(cells)
         for (let x = 0; x < cols.length; x++) {
             let col = cols[x]
 
@@ -20,22 +21,23 @@ export class SudokuValidator {
                 let cell = col[y]
                 if (!invalids.includes(cell)) continue
 
-                sudoku.invalidateCell(this.#CoordsToIndex(x, y))
+                invalidIndexes.push(this.#CoordsToIndex(x, y))
             }
         }
+        return invalidIndexes
     }
 
     static #CoordsToIndex(x: number, y: number): number {
         return (y * Sudoku.WIDTH) + x
     }
 
-    static #boardColumns(sudoku: Sudoku): Array<Array<number>> {
+    static #extractColumns(cells: number[]): number[][] {
         let cols = []
         for (let i = 0; i < Sudoku.WIDTH; i++) {
             let col = []
             let x = i
-            while (x < sudoku.board.length) {
-                let val = sudoku.board[x].value
+            while (x < cells.length) {
+                let val = cells[x].value
                 col.push(val)
                 x = x + Sudoku.WIDTH
             }
@@ -44,3 +46,5 @@ export class SudokuValidator {
         return cols
     }
 }
+
+export { SudokuValidator }

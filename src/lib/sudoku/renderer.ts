@@ -1,6 +1,6 @@
 import { Sudoku, Cell } from "./../sudoku.ts"
 
-export class SudokuRenderer {
+class SudokuRenderer {
     static render(element: HTMLDivElement, sudoku: Sudoku): void {
         element.innerHTML = "";
 
@@ -41,3 +41,5 @@ export class SudokuRenderer {
         return element
     }
 }
+
+export { SudokuRenderer }

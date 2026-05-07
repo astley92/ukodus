@@ -2,13 +2,17 @@ import { Sudoku } from "./sudoku.ts"
 import { SudokuRenderer } from "./sudoku/renderer.ts"
 import { SudokuValidator } from "./sudoku/validator.ts"
 
-export class App {
+class App {
     rootElement: HTMLDivElement;
     sudoku: Sudoku;
 
     static initialize(rootElement: HTMLDivElement): App {
         let sudoku = Sudoku.testBoard()
-        SudokuValidator.call(sudoku)
+        let invalidIndexes: number[] = SudokuValidator.call(sudoku.board)
+
+        for (let i of invalidIndexes) {
+            sudoku.invalidateCell(i)
+        }
 
         SudokuRenderer.render(rootElement, sudoku)
         return new App(rootElement, sudoku)
@@ -19,3 +23,5 @@ export class App {
         this.sudoku = sudoku
     }
 }
+
+export { App }
